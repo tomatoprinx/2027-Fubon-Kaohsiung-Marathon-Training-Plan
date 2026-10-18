@@ -211,7 +211,7 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .plead{color:var(--muted);margin:0 0 20px;font-size:14px}
 .week{scroll-margin-top:16px}
 .side{display:none}
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(4,1fr);
   background:color-mix(in srgb,var(--surface) 86%,transparent);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px);
   border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
 .tabbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;padding:7px 0 5px;color:var(--muted);text-decoration:none;font-size:11px;-webkit-tap-highlight-color:transparent}
@@ -249,7 +249,10 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.page.active{animation:none}}
 
 /* cloud sync */
-.synccard{margin-top:22px;max-width:640px}
+.synccard{max-width:640px}
+.sec{font-size:13px;letter-spacing:.08em;color:var(--muted);font-weight:var(--hw);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+#page-more .ptitle+.sec{margin-top:14px}
+#page-more .plead{margin-bottom:12px}
 .synccard .muted{color:var(--muted);font-size:13.5px}
 .fld{display:block;margin:12px 0}
 .fld span{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
@@ -310,18 +313,6 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
       </div>
     </div>
   </section>
-  <section class="card synccard" aria-labelledby="h-sync">
-    <h2 id="h-sync">雲端同步（Google Sheets）</h2>
-    <p class="muted">設定後，打勾紀錄會存到你的 Google 試算表，電腦、iPhone 和主畫面 App 都會看到相同紀錄。網址和密碼只存在這台裝置上，每台裝置設定一次即可。</p>
-    <label class="fld"><span>Web App 網址或設定碼</span><input id="sync-url" type="text" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://script.google.com/macros/s/…/exec"></label>
-    <label class="fld"><span>同步密碼</span><input id="sync-token" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="與 SYNC_TOKEN 相同"></label>
-    <div class="btns">
-      <button type="button" class="btn primary" id="sync-save">儲存並同步</button>
-      <button type="button" class="btn" id="sync-copy">複製設定碼</button>
-      <button type="button" class="btn" id="sync-off">停用同步</button>
-    </div>
-    <p class="sync-chip"><span class="sync-dot" data-sync-dot></span><span data-sync>雲端同步未設定</span></p>
-  </section>
 </section>
 
 <section class="page" id="page-schedule" aria-labelledby="h-schedule">
@@ -376,8 +367,25 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
   </div>
 </section>
 
-<section class="page" id="page-f45" aria-labelledby="h-f45">
-  <h2 class="ptitle" id="h-f45">F45 Xinyi</h2>
+<section class="page" id="page-more" aria-labelledby="h-more">
+  <h2 class="ptitle" id="h-more">其它</h2>
+
+  <h3 class="sec" id="sec-sync">雲端同步</h3>
+  <section class="card synccard" aria-labelledby="h-sync">
+    <h2 id="h-sync">Google Sheets 同步</h2>
+    <p class="muted">設定後，打勾紀錄會存到你的 Google 試算表，電腦、iPhone 和主畫面 App 都會看到相同紀錄。網址和密碼只存在這台裝置上，每台裝置設定一次即可。</p>
+    <label class="fld"><span>Web App 網址或設定碼</span><input id="sync-url" type="text" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://script.google.com/macros/s/…/exec"></label>
+    <label class="fld"><span>同步密碼</span><input id="sync-token" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="與 SYNC_TOKEN 相同"></label>
+    <div class="btns">
+      <button type="button" class="btn primary" id="sync-save">儲存並同步</button>
+      <button type="button" class="btn" id="sync-copy">複製設定碼</button>
+      <button type="button" class="btn" id="sync-off">停用同步</button>
+    </div>
+    <p class="sync-chip"><span class="sync-dot" data-sync-dot></span><span data-sync>雲端同步未設定</span></p>
+  </section>
+
+  <h3 class="sec" id="sec-f45">F45 Xinyi</h3>
+
   <p class="plead">每週二、四、日的肌力課，與跑步訓練錯開安排。</p>
   <div class="notes">
     <div class="card">
@@ -398,10 +406,9 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
       </dl>
     </div>
   </div>
-</section>
 
-<section class="page" id="page-travel" aria-labelledby="h-travel">
-  <h2 class="ptitle" id="h-travel">旅遊</h2>
+  <h3 class="sec" id="sec-travel">旅遊</h3>
+
   <p class="plead">旅遊期間在課表上以斜紋標示。</p>
   <div class="notes">
     <div class="card trav">
@@ -567,13 +574,15 @@ document.getElementById("cd2").textContent=cd.textContent;
 document.getElementById("cdl2").textContent=cdl.textContent;
 
 // pages & navigation
-const PAGES=[["overview","總覽"],["schedule","課表"],["pace","配速"],["f45","F45"],["travel","旅遊"]];
-const ICONS={"overview": "<path d=\"M5 21V4\"/><path d=\"M5 4h12l-2.5 4.5L17 13H5\"/>", "schedule": "<rect x=\"3.5\" y=\"5\" width=\"17\" height=\"15.5\" rx=\"2.5\"/><path d=\"M3.5 10h17M8 3v4M16 3v4\"/>", "pace": "<circle cx=\"12\" cy=\"13.5\" r=\"7.5\"/><path d=\"M12 13.5V9.5M9.5 2.5h5M12 2.5V6\"/>", "f45": "<path d=\"M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11\"/>", "travel": "<path d=\"M21.5 3.5 3 11l7 3 3 7z\"/><path d=\"M10 14 21.5 3.5\"/>"};
+const PAGES=[["overview","總覽"],["schedule","課表"],["pace","配速"],["more","其它"]];
+const ALIAS={f45:"more",travel:"more",sync:"more"};
+const ICONS={"overview": "<path d=\"M5 21V4\"/><path d=\"M5 4h12l-2.5 4.5L17 13H5\"/>", "schedule": "<rect x=\"3.5\" y=\"5\" width=\"17\" height=\"15.5\" rx=\"2.5\"/><path d=\"M3.5 10h17M8 3v4M16 3v4\"/>", "pace": "<circle cx=\"12\" cy=\"13.5\" r=\"7.5\"/><path d=\"M12 13.5V9.5M9.5 2.5h5M12 2.5V6\"/>", "f45": "<path d=\"M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11\"/>", "travel": "<path d=\"M21.5 3.5 3 11l7 3 3 7z\"/><path d=\"M10 14 21.5 3.5\"/>","more":"<circle cx=\"5\" cy=\"12\" r=\"1.7\"/><circle cx=\"12\" cy=\"12\" r=\"1.7\"/><circle cx=\"19\" cy=\"12\" r=\"1.7\"/>"};
 const svg=id=>`<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${ICONS[id]}</svg>`;
 document.getElementById("nav").innerHTML=PAGES.map(([id,l])=>`<li><a href="#${id}" data-page="${id}">${svg(id)}<span>${l}</span></a></li>`).join("");
 document.getElementById("tabbar").innerHTML=PAGES.map(([id,l])=>`<a href="#${id}" data-page="${id}">${svg(id)}<span>${l}</span></a>`).join("");
 let scheduleSeen=false;
 function show(id){
+  if(ALIAS[id]) id=ALIAS[id];
   if(!PAGES.some(p=>p[0]===id)) id="overview";
   document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+id));
   document.querySelectorAll("[data-page]").forEach(a=>{ if(a.dataset.page===id) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
