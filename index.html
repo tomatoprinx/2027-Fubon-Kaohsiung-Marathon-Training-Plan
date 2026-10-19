@@ -14,7 +14,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Huninn&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F3F5F4; --surface:#FFFFFF; --ink:#16212E; --muted:#5B6773; --line:#D9DEE2;
@@ -29,8 +30,8 @@
   --today:#16212E;
   --past-bg:color-mix(in srgb,var(--rest-bg) 65%,var(--bg));
   --shade:#0B1520;
-  --font-body:"Huninn","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
-  --font-num:"Fredoka","Arial Rounded MT Bold",sans-serif;
+  --font-body:"Quicksand","Huninn","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --font-num:"Quicksand","Arial Rounded MT Bold",sans-serif;
   --hw:400;
   color-scheme:light;
   box-sizing:border-box;
@@ -271,6 +272,25 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .sync-dot[data-state="err"]{background:var(--travel)}
 @keyframes pulse{50%{opacity:.3}}
 @media (prefers-reduced-motion:reduce){.sync-dot[data-state="busy"]{animation:none}}
+.wo h2 small{font-size:13px;color:var(--muted);font-weight:400;margin-left:4px}
+.wo-pace{margin:2px 0 4px}
+.wo-pace .num{font-size:17px;font-weight:600;color:var(--quality)}
+.wo .kv{grid-template-columns:3.6em 1fr}
+.goal{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:14px 0 0}
+.goal-tag{font-size:12px;color:var(--bg);background:var(--ink);border-radius:999px;padding:1px 10px;align-self:center}
+.goal-main{font-size:clamp(24px,3.4vw,30px);font-weight:700;color:var(--quality);line-height:1.1}
+.goal-sub{font-size:13.5px;color:var(--muted)}
+.hero{display:block;margin-bottom:18px}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:22px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile .tl{font-size:12.5px;color:var(--muted);letter-spacing:.06em}
+.tile .tv{font-size:clamp(30px,4.4vw,40px);font-weight:700;line-height:1.1;white-space:nowrap}
+.goal-tile{border-top:4px solid var(--quality)}
+.goal-tile .tv{color:var(--quality)}
+.tile:not(.goal-tile){border-top:4px solid var(--race)}
+.tmeta{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:13px;color:var(--muted);margin-top:4px}
+.tmeta b{color:var(--ink);font-size:15px;font-weight:600}
+@media (max-width:520px){.tile{padding:14px}.tmeta{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -284,16 +304,22 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
 <main class="main">
 <section class="page" id="page-overview" aria-label="總覽">
-  <header>
-    <div>
-      <h1>富邦高雄馬拉松<br>21K 半程馬拉松訓練課表</h1>
-      <p class="sub">2026/10/19 – 2027/1/10，共 12 週。跑步 3–4 天、F45 Xinyi 肌力課 3 堂，目標完賽 <span class="num" style="font-size:18px;font-weight:600">2:15–2:20</span></p>
-    </div>
-    <div class="countdown" aria-live="polite">
-      <span class="n num" id="cd">—</span>
-      <small id="cdl">天後起跑</small>
-    </div>
+  <header class="hero">
+    <h1>富邦高雄馬拉松<br>21K 半程馬拉松訓練課表</h1>
+    <p class="sub">2026/10/19 – 2027/1/10，共 12 週。每週跑步 3–4 天、F45 Xinyi 肌力課 3 堂。</p>
   </header>
+  <div class="tiles">
+    <div class="tile goal-tile">
+      <span class="tl">比賽目標</span>
+      <span class="tv num">Sub 2:00</span>
+      <div class="tmeta"><span>配速 <b class="num">5:41</b> /km 以內</span><span>保底 <b class="num">2:05–2:10</b></span></div>
+    </div>
+    <div class="tile" aria-live="polite">
+      <span class="tl">倒數</span>
+      <span class="tv num" id="cd">—</span>
+      <div class="tmeta"><span id="cdl">天後起跑</span><span>2027/1/10（日）高雄</span></div>
+    </div>
+  </div>
 
   <section class="road" aria-labelledby="rt">
     <h2 id="rt">訓練進度 Roadmap</h2>
@@ -304,9 +330,9 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
     </div>
     <div class="scroll">
       <div class="rm" id="rm">
-        <div class="phase ph1"><b>基礎期</b><span>建立跑步習慣、法特雷克與 400m 間歇</span></div>
-        <div class="phase ph2"><b>節奏期</b><span>節奏跑（Tempo Run）提升耐力，長跑到 15K</span></div>
-        <div class="phase ph3"><b>專項期</b><span>目標配速練習，最長 18K</span></div>
+        <div class="phase ph1"><b>基礎期</b><span>建立跑步習慣，Fartlek 與 Interval 入門</span></div>
+        <div class="phase ph2"><b>節奏期</b><span>Tempo 提升耐力，LSD 拉到 15K</span></div>
+        <div class="phase ph3"><b>專項期</b><span>Pace Run 熟悉比賽配速，LSD 最長 18K</span></div>
         <div class="phase ph4"><b>減量與比賽</b><span>減量（Taper）後上場</span></div>
         <div class="track"><div class="rail"><div class="fill" id="fill"></div></div><div class="nodes" id="nodes"></div></div>
         <div class="miles" id="miles"></div>
@@ -320,10 +346,10 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
   <p class="plead">12 週訓練日曆。點一下項目標記完成，已結束的週次會自動收合。</p>
   <p class="sync-chip"><span class="sync-dot" data-sync-dot></span><span data-sync>雲端同步未設定</span></p>
   <ul class="legend" aria-label="圖例">
-    <li><span class="sw" style="background:var(--easy)"></span>輕鬆跑</li>
-    <li><span class="sw" style="border:1.5px dashed var(--easy)"></span>選擇性輕鬆跑</li>
-    <li><span class="sw" style="background:var(--quality)"></span>品質課</li>
-    <li><span class="sw" style="background:var(--long)"></span>長跑（Long Run）</li>
+    <li><span class="sw" style="background:var(--easy)"></span>Easy Run</li>
+    <li><span class="sw" style="border:1.5px dashed var(--easy)"></span>選擇性 Easy Run</li>
+    <li><span class="sw" style="background:var(--quality)"></span>品質課（Tempo／Interval／Pace Run）</li>
+    <li><span class="sw" style="background:var(--long)"></span>LSD 長距離慢跑</li>
     <li><span class="sw" style="background:var(--f45)"></span>F45 Xinyi</li>
     <li><span class="sw" style="background:var(--rest)"></span>休息</li>
     <li><span class="sw" style="background:var(--done)"></span>已完成</li>
@@ -337,32 +363,57 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
 <section class="page" id="page-pace" aria-labelledby="h-pace">
   <h2 class="ptitle" id="h-pace">配速與訓練說明</h2>
-  <p class="plead">依 10K 約 59 分的成績換算，訓練前快速查看。</p>
+  <p class="plead">以半馬破二（全程 5:41/km 以內）為目標設定，訓練前快速查看。</p>
   <div class="notes">
     <div class="card">
       <h2>配速參考</h2>
       <div class="pace">
-        <span class="num">6:50–7:30</span><span>輕鬆跑、長跑（/km）</span>
-        <span class="num">5:50–6:00</span><span>節奏跑（Tempo Run）</span>
-        <span class="num">6:25–6:35</span><span>半馬目標配速</span>
-        <span class="num">1:55–2:00</span><span>400m 間歇每趟</span>
+        <span class="num">6:50–7:30</span><span>Easy Run、LSD</span>
+        <span class="num">5:30–5:45</span><span>Tempo 節奏跑</span>
+        <span class="num">5:35–5:40</span><span>Pace Run 破二目標配速</span>
+        <span class="num">4:30–4:45</span><span>Interval 400m（每趟約 1:48–1:54）</span>
       </div>
-      <p style="color:var(--muted);font-size:13px">品質課的公里數包含前後各 1.5–2K 的暖身與緩和。</p>
+      <p style="color:var(--muted);font-size:13px">單位皆為每公里配速（/km）。品質課的公里數包含前後各 1.5–2K 的暖身與緩和。</p>
     </div>
-    <div class="card">
-      <h2>加速跑（Strides）怎麼做</h2>
-      <ol class="steps">
-        <li>輕鬆跑結束後，找一段平坦、約 100m 的直線。</li>
-        <li>前 5 秒逐漸加速，中間 10 秒維持約 85–90% 速度，最後 5 秒收速，共約 20 秒。</li>
-        <li>每趟之間走路或極慢跑 60–90 秒，呼吸平順再開始下一趟。</li>
-        <li>重點是放鬆流暢：肩膀下沉、腳步輕快，不是衝刺。</li>
-      </ol>
-      <p style="color:var(--muted);font-size:13px">腿特別沉重時可減成 2–3 趟或跳過。</p>
+  </div>
+
+  <h3 class="sec">訓練項目怎麼跑</h3>
+  <p class="plead">品質課指 Tempo、Interval、Fartlek、Pace Run，固定排在週三，其餘日子以 Easy Run 和 LSD 累積跑量。</p>
+  <div class="notes">
+    <div class="card wo">
+      <h2>Easy Run <small>輕鬆跑</small></h2>
+      <p class="wo-pace"><span class="num">6:50–7:30 /km</span></p>
+      <dl class="kv"><dt>強度</dt><dd>能說完整句子的程度，自覺強度 RPE 3–4/10。</dd><dt>怎麼跑</dt><dd>依課表距離穩定慢跑完成，熱天或上坡自然放慢沒關係，有心率時維持在 Zone 2。</dd><dt>注意</dt><dd>最常見的錯誤是越跑越快變成中等強度，寧可慢一點，品質課才有力氣。</dd></dl>
     </div>
-    <div class="card">
-      <h2>什麼是品質課</h2>
-      <p>品質課（Quality Session）是有明確強度目標、比平常更辛苦的訓練，例如間歇跑（Interval）、節奏跑、法特雷克（Fartlek）與目標配速跑。</p>
-      <p>大部分日子用輕鬆跑累積有氧基礎，每週三再專注在強度。輕鬆跑要真的輕鬆，品質課才有力氣跑出應有的強度。</p>
+    <div class="card wo">
+      <h2>LSD <small>長距離慢跑</small></h2>
+      <p class="wo-pace"><span class="num">6:50–7:30 /km，可再慢</span></p>
+      <dl class="kv"><dt>目的</dt><dd>延長「時間在腳上」，建立耐力和脂肪代謝能力。</dd><dt>怎麼跑</dt><dd>前 2–3K 刻意放慢，之後維持穩定的 Easy 配速；跑超過 60 分鐘時，每 40–45 分鐘練習補水與能量膠。W10 的 18K 最後 3K 改用 Pace Run 配速。</dd><dt>注意</dt><dd>不追配速，跑完應該覺得還能再多跑一點。可多安排在清晨，練習比賽當天的作息。</dd></dl>
+    </div>
+    <div class="card wo">
+      <h2>Tempo <small>節奏跑</small></h2>
+      <p class="wo-pace"><span class="num">5:30–5:45 /km</span></p>
+      <dl class="kv"><dt>強度</dt><dd>「舒服的吃力」，只能說短句，RPE 6–7/10。</dd><dt>怎麼跑</dt><dd>Easy 暖身 1.5–2K → 主課表（W5 2×10 分、W6 3×10 分，段間慢跑 2–3 分；W7 連續 20 分）→ Easy 緩和 1.5K。配速從 W5 的 5:45 開始，逐週加快到 W7 的 5:30。</dd><dt>注意</dt><dd>每段配速保持一致，結束時應覺得還能再撐 5–10 分鐘。若前段就喘到說不出話，代表太快了。</dd></dl>
+    </div>
+    <div class="card wo">
+      <h2>Interval <small>間歇跑</small></h2>
+      <p class="wo-pace"><span class="num">4:30–4:45 /km（400m 約 1:48–1:54）</span></p>
+      <dl class="kv"><dt>目的</dt><dd>提升速度與跑步經濟性，讓比賽配速相對更輕鬆。</dd><dt>怎麼跑</dt><dd>田徑場 Easy 暖身 2K，加 2–3 趟 Strides → 8×400m，每趟後慢跑 200m 恢復（約 1.5–2 分）→ Easy 緩和 1.5K。</dd><dt>注意</dt><dd>重點是每趟穩定，各趟差距控制在 3–4 秒內，最後一趟不要衝刺。若後段比前段慢超過 5 秒，就提早結束。</dd></dl>
+    </div>
+    <div class="card wo">
+      <h2>Fartlek <small>法特雷克</small></h2>
+      <p class="wo-pace"><span class="num">快段 RPE 7，慢段 Easy</span></p>
+      <dl class="kv"><dt>目的</dt><dd>以不計較精確配速的方式加入變速，適合剛開始練強度時。</dd><dt>怎麼跑</dt><dd>Easy 暖身 1.5K → 快 1 分、慢 2 分為一組，做 6 組 → Easy 緩和。快段約比 Tempo 稍快，慢段完全放鬆。</dd><dt>注意</dt><dd>快段不是衝刺。可用路燈、地標取代計時，在河濱或公園都能做。</dd></dl>
+    </div>
+    <div class="card wo">
+      <h2>Strides <small>加速跑</small></h2>
+      <p class="wo-pace"><span class="num">約 4:15–4:45 /km 的感覺</span></p>
+      <dl class="kv"><dt>怎麼跑</dt><dd>Easy Run 結束後找約 100m 平直路：前 5 秒漸進加速，中間 10 秒維持 85–90% 速度，最後 5 秒收速，共約 20 秒；每趟間走路或慢跑 60–90 秒，做 4 趟。</dd><dt>注意</dt><dd>重點是放鬆流暢：肩膀下沉、腳步輕快。腿特別沉重時可減成 2–3 趟或跳過。</dd></dl>
+    </div>
+    <div class="card wo">
+      <h2>Pace Run <small>配速跑</small></h2>
+      <p class="wo-pace"><span class="num">5:35–5:40 /km</span></p>
+      <dl class="kv"><dt>目的</dt><dd>讓身體記住比賽節奏，同時檢驗目標是否合理。</dd><dt>怎麼跑</dt><dd>Easy 暖身 1.5–2K → 以目標配速跑課表指定的段落（如 4×1.5K、3×2K），段間慢跑 2–3 分 → Easy 緩和。</dd><dt>注意</dt><dd>感覺應該「吃力但可控」。W9 的 4×1.5K 是檢驗點：若無法穩定跑在 5:40 以內，或 W10 的 3×2K 後段明顯掉速，比賽改以 2:05–2:10（約 5:55–6:10/km）為目標，後半段再視狀況加速。</dd></dl>
     </div>
   </div>
 </section>
@@ -391,8 +442,8 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
     <div class="card">
       <h2>搭配原則</h2>
       <ul>
-        <li>第 6、7、9、10 週週四：下肢動作減輕重量或次數，留力給週六長跑。</li>
-        <li>週日接在長跑隔天，不必衝到最大強度，當作主動恢復。</li>
+        <li>第 6、7、9、10 週週四：下肢動作減輕重量或次數，留力給週六 LSD。</li>
+        <li>週日接在 LSD 隔天，不必衝到最大強度，當作主動恢復。</li>
         <li>第 11 週避免大重量下肢；比賽週只上週二、以上肢與核心為主。</li>
         <li>可先告知教練正在備戰半馬，請他協助調整動作。</li>
       </ul>
@@ -415,14 +466,14 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
       <div class="trip-h"><h2>第一段旅遊</h2><span class="num">10/31 – 11/4</span></div>
       <dl class="kv">
         <dt>已調整</dt><dd>11/1 的 F45 移到 10/30 綜合訓練；11/3 改為休息或選擇性輕鬆跑</dd>
-        <dt>保留課表</dt><dd>10/31 9K 長跑、11/4 7K 品質課</dd>
+        <dt>保留課表</dt><dd>10/31 9K LSD、11/4 7K Interval</dd>
       </dl>
     </div>
     <div class="card trav">
       <div class="trip-h"><h2>第二段旅遊</h2><span class="num">12/30 – 1/3</span></div>
       <dl class="kv">
         <dt>已調整</dt><dd>取消 12/31 與 1/3 的 F45</dd>
-        <dt>保留課表</dt><dd>12/30 8K 品質課、1/1 5K 輕鬆跑、1/2 12K 長跑</dd>
+        <dt>保留課表</dt><dd>12/30 8K Pace Run、1/1 5K Easy Run、1/2 12K LSD</dd>
       </dl>
     </div>
   </div>
@@ -434,27 +485,27 @@ button.wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 <script>
 const RACE=new Date(2027,0,10), START=new Date(2026,9,19);
 const TRIPS=[{name:"旅遊",from:new Date(2026,9,31),to:new Date(2026,10,4)},{name:"旅遊",from:new Date(2026,11,30),to:new Date(2027,0,3)}];
-const E=(x,note)=>({type:"easy",t:"輕鬆跑",x,note});
-const O=(x,note)=>({type:"optional",t:"選擇性輕鬆跑",x,note:note||"疲勞時改休息"});
-const Q=x=>({type:"quality",t:"品質課",x});
-const L=(x,note)=>({type:"long",t:"長跑",x,note});
+const E=(x,note)=>({type:"easy",t:"Easy Run",x,note});
+const O=(x,note)=>({type:"optional",t:"Easy Run",x,note:note||"疲勞時改休息"});
+const Q=(x,t)=>({type:"quality",t:t||"品質課",x});
+const L=(x,note)=>({type:"long",t:"LSD",x,note});
 const F=note=>({type:"f45",t:"F45 Xinyi",x:"肌力課",note});
 const FH=note=>({type:"f45",t:"F45 Xinyi",x:"綜合訓練",note});
 const R=x=>({type:"rest",t:"休息",x:x||"完整休息"});
 const legs="下肢減量", nolegs="避免大重量下肢";
 const W=[
- {tag:"",km:18,d:[R(),F(),Q("5K + 4×20 秒加速跑"),F(),E("5K"),L("8K"),F()]},
- {tag:"",km:20,d:[R(),F(),Q("6K 法特雷克 6×(1 分快／2 分慢)"),F(),[E("5K"),FH()],L("9K"),R("F45 移至 10/30")]},
- {tag:"",km:23,d:[R(),O("3–4K","或完整休息"),Q("7K，含 8×400m，慢跑 200m 恢復"),F(),E("6K"),L("10K"),F()]},
- {tag:"恢復週",km:19,d:[R(),F(),Q("5K + 加速跑"),F(),E("5K"),L("9K"),F()]},
- {tag:"",km:29,d:[O("4K"),F(),Q("7K，含 2×10 分節奏跑"),F(),E("6K"),L("12K"),F()]},
- {tag:"",km:33,d:[O("5K"),F(),Q("8K，含 3×10 分節奏跑"),F(legs),E("6K"),L("14K"),F()]},
- {tag:"",km:35,d:[O("5K"),F(),Q("8K，含 20 分連續節奏跑"),F(legs),E("7K"),L("15K"),F()]},
- {tag:"恢復週",km:24,d:[R(),F(),Q("6K + 加速跑"),F(),E("6K"),L("12K"),F()]},
- {tag:"",km:37,d:[O("5K"),F(),Q("9K，含 4×1.5K 目標配速"),F(legs),E("7K"),L("16K"),F()]},
- {tag:"高峰週",km:41,d:[O("6K"),F(),Q("10K，含 3×2K 目標配速"),F(legs),E("7K"),L("18K","最後 3K 目標配速"),F()]},
- {tag:"減量週",km:25,d:[R(),F(nolegs),Q("8K，含 2×2K 目標配速"),R("取消 F45"),E("5K"),L("12K"),R("取消 F45")]},
- {tag:"比賽週",km:null,d:[R(),F("上肢與核心為主"),Q("5K，含 3×1K 目標配速"),R("跳過 F45"),E("4K + 加速跑"),R("或 2–3K 極輕鬆跑"),{type:"race",t:"比賽日",x:"21.1K 富邦高雄馬拉松"}]}
+ {tag:"",km:18,d:[R(),F(),Q("5K + 4×20 秒","Easy + Strides"),F(),E("5K"),L("8K"),F()]},
+ {tag:"",km:20,d:[R(),F(),Q("6K，含 6×(1 分快／2 分慢)","Fartlek"),F(),[E("5K"),FH()],L("9K"),R("F45 移至 10/30")]},
+ {tag:"",km:23,d:[R(),O("3–4K","或完整休息"),Q("7K，含 8×400m，慢跑 200m 恢復","Interval"),F(),E("6K"),L("10K"),F()]},
+ {tag:"恢復週",km:19,d:[R(),F(),Q("5K + 4×20 秒","Easy + Strides"),F(),E("5K"),L("9K"),F()]},
+ {tag:"",km:29,d:[O("4K"),F(),Q("7K，含 2×10 分","Tempo"),F(),E("6K"),L("12K"),F()]},
+ {tag:"",km:33,d:[O("5K"),F(),Q("8K，含 3×10 分","Tempo"),F(legs),E("6K"),L("14K"),F()]},
+ {tag:"",km:35,d:[O("5K"),F(),Q("8K，含連續 20 分","Tempo"),F(legs),E("7K"),L("15K"),F()]},
+ {tag:"恢復週",km:24,d:[R(),F(),Q("6K + 4×20 秒","Easy + Strides"),F(),E("6K"),L("12K"),F()]},
+ {tag:"",km:37,d:[O("5K"),F(),Q("9K，含 4×1.5K","Pace Run"),F(legs),E("7K"),L("16K"),F()]},
+ {tag:"高峰週",km:41,d:[O("6K"),F(),Q("10K，含 3×2K","Pace Run"),F(legs),E("7K"),L("18K","最後 3K 半馬配速"),F()]},
+ {tag:"減量週",km:25,d:[R(),F(nolegs),Q("8K，含 2×2K","Pace Run"),R("取消 F45"),E("5K"),L("12K"),R("取消 F45")]},
+ {tag:"比賽週",km:null,d:[R(),F("上肢與核心為主"),Q("5K，含 3×1K","Pace Run"),R("跳過 F45"),E("4K + 4×20 秒 Strides"),R("或 2–3K 極輕鬆跑"),{type:"race",t:"比賽日",x:"21.1K 富邦高雄馬拉松"}]}
 ];
 const MILES=[
  {w:2,date:[2026,10,7],flag:"10K",label:"長跑突破 10K"},
@@ -567,7 +618,7 @@ document.getElementById("reset").addEventListener("click",()=>{
 
 const diff=Math.round((RACE-today)/86400000);
 const cd=document.getElementById("cd"), cdl=document.getElementById("cdl");
-if(diff>0){cd.textContent=diff;cdl.textContent="天後在高雄起跑";}
+if(diff>0){cd.textContent=diff;cdl.textContent="天後起跑";}
 else if(diff===0){cd.textContent="今天";cdl.textContent="比賽日，享受每一公里";}
 else{cd.textContent="完賽";cdl.textContent="2027/1/10 富邦高雄馬拉松";}
 document.getElementById("cd2").textContent=cd.textContent;
